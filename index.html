@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Form</title>
+    <!-- Style the form for a clean, modern look -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f7f6;
+            padding: 20px;
+        }
+        .form-container {
+            max-width: 500px;
+            margin: 0 auto;
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        h2 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #555;
+        }
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        input[type="date"],
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        textarea {
+            resize: vertical;
+            height: 120px;
+        }
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+
+    <!-- Include the official EmailJS SDK -->
+    <script type="text/javascript" src="https://jsdelivr.net"></script>
+    <script type="text/javascript">
+        (function() {
+            // BACKEND SETUP: Replace with your actual EmailJS Public Key
+            emailjs.init("lQg3_7NSDPUU_nzAb");
+        })();
+    </script>
+</head>
+<body>
+
+<div class="form-container">
+    <h2>Book an Date with Charles -- Handsome Strong Man</h2>
+    <form id="contact-form">
+        <div class="form-group">
+            <label for="user_name">Full Name</label>
+            <input type="text" id="user_name" name="user_name" required>
+        </div>
+
+        <div class="form-group">
+            <label for="user_email">Email Address</label>
+            <input type="email" id="user_email" name="user_email" required>
+        </div>
+
+        <div class="form-group">
+            <label for="user_phone">Phone Number</label>
+            <input type="tel" id="user_phone" name="user_phone" required>
+        </div>
+
+        <div class="form-group">
+            <label for="preferred_date">Preferred Date</label>
+            <input type="date" id="preferred_date" name="preferred_date" required>
+        </div>
+
+        <div class="form-group">
+            <label for="message">Additional Details</label>
+            <textarea id="message" name="message" placeholder="Enter your free-text here..."></textarea>
+        </div>
+
+        <button type="submit">Send Details</button>
+    </form>
+</div>
+
+<script>
+    // Handle form submission
+    document.getElementById('contact-form').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        // BACKEND SETUP: Replace with your actual Service ID and Template ID
+        const serviceID = 'YOUR_SERVICE_ID';
+        const templateID = 'YOUR_TEMPLATE_ID';
+
+        emailjs.sendForm(serviceID, templateID, this)
+            .then(() => {
+                alert('Your information has been sent successfully!');
+                document.getElementById('contact-form').reset();
+            }, (error) => {
+                alert('Failed to send details. Error: ' + JSON.stringify(error));
+            });
+    });
+</script>
+
+</body>
+</html>
